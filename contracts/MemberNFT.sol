@@ -9,6 +9,11 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 
 contract MemberNFT is ERC721URIStorage, ERC721Enumerable, Ownable {
+
+    /**
+     * @dev
+     * - コンストラクタ
+     */
     constructor() ERC721("MemberNFT", "MEM") {}
 
     /**
