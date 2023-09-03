@@ -18,6 +18,12 @@ contract MemberNFT is ERC721URIStorage, ERC721Enumerable, Ownable {
 
     /**
      * @dev
+     * - 誰にどのTokenId,URIをmintしたかを記録する
+     */
+    event TokenURIChanged(address indexed to, uint256 tokenId, string uri);
+
+    /**
+     * @dev
      * - コンストラクタ
      */
     constructor() ERC721("MemberNFT", "MEM") {}
@@ -31,6 +37,7 @@ contract MemberNFT is ERC721URIStorage, ERC721Enumerable, Ownable {
         uint256 newTokenId = _tokenIds.current();
         _mint(to, newTokenId);
         _setTokenURI(newTokenId, uri);
+        emit TokenURIChanged(to, newTokenId, uri);
     }
 
     /**
