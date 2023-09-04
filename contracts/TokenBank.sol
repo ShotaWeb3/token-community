@@ -3,27 +3,43 @@
 pragma solidity ^0.8.9;
 
 contract TokenBank {
-    // トークンの名前
+    /// @dev トークンの名前
     string private _name;
 
-    // トークンのシンボル
+    /// @dev トークンのシンボル
     string private _symbol;
 
-    // トークンの総供給量
+    /// @dev トークンの総供給量
     uint256 constant _totalSupply = 1000;
 
-    // トークンバンクがあづかっている総額
+    /// @dev トークンバンクがあづかっている総額
     uint256 private _bankTotalDeposit;
 
-    // トークンバンクのオーナー
+    /// @dev トークンバンクのオーナー
     address public owner;
 
-    // アカウントアドレス毎のトークン残高
+    /// @dev アカウントアドレス毎のトークン残高
     mapping(address => uint256) private _balances;
 
-    // トークンバンクが預かっているトークン残高
+    /// @dev トークンバンクが預かっているトークン残高
     mapping(address => uint256) private _tokenBankBalances;
 
-    
+    /// @dev トークン移転時のイベント
+    event TokenTransfer(
+        address indexed from,
+        address indexed to,
+        uint256 amount
+    );
 
+    /// @dev トークン預け入れ時のイベント
+    event TokenDeposit(
+        address indexed from,
+        uint256 amount
+    );
+
+    /// @dev トークン引き出し時のイベント
+    event TokenWithdraw(
+        address indexed from,
+        uint256 amount
+    );
 }
