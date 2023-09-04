@@ -49,4 +49,24 @@ contract TokenBank {
         owner   = msg.sender;
         _balances[owner] = _totalSupply;
     }
+
+    /// @dev トークンの名前を返す
+    function name() public view returns (string memory) {
+        return _name;
+    }
+
+    /// @dev トークンのシンボルを返す
+    function symbol() public view returns (string memory) {
+        return _symbol;
+    }
+
+    /// @dev トークンの総供給数を返す
+    function totalSupply() public pure returns (uint256) {
+        return _totalSupply;
+    }
+
+    /// @dev 指定アカウントアドレスのトークン残高を返す
+    function blanceOf(address account) public view returns (uint256) {
+        return _balances[account];
+    }
 }
