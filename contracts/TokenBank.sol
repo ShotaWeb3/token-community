@@ -66,7 +66,7 @@ contract TokenBank {
     }
 
     /// @dev 指定アカウントアドレスのトークン残高を返す
-    function blanceOf(address account) public view returns (uint256) {
+    function balanceOf(address account) public view returns (uint256) {
         return _balances[account];
     }
 }
