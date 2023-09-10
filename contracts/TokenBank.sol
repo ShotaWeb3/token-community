@@ -96,7 +96,7 @@ contract TokenBank {
     /// @dev トークンを移転
     function transfer(address to, uint256 amount) public onlyMember {
         if (owner == msg.sender) {
-            require(_balances[owner] - _bankTotalDeposit >= amount, "Amounts gretter than the total supply cannot be transferred");
+            require(_balances[owner] - _bankTotalDeposit >= amount, "Amounts greater than the total supply cannot be transferred");
         }
         address from = msg.sender;
         _transfer(from, to, amount);

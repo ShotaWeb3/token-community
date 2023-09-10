@@ -139,7 +139,7 @@ describe("TokenBankコントラクト", () => {
     });
     it("トータル預入トークン数より大きな数はオーナーであっても移転に失敗すべき", async () => {
       await expect(tokenBank.transfer(addr1.address, 201))
-      .to.be.revertedWith("Amounts gretter than the total supply cannot be transferred");
+      .to.be.revertedWith("Amounts greater than the total supply cannot be transferred");
     });
     it("NFTメンバー以外の移転は失敗すべき", async () => {
       await expect(tokenBank.connect(addr3).transfer(addr1.address, 100))
