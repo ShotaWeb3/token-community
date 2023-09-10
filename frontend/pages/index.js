@@ -15,7 +15,7 @@ export default function Home() {
   const [nftOwner, setNftOwner] = useState(false)
   const [inputData, setInputData] = useState({ transferAddress: '', transferAmount: '', depositAmount: '', withdrawAmount: '' });
   const [items, setItems] = useState([])
-  const sepoliaId = '0x11155111'
+  const sepoliaId = '0xaa36a7'
   const zeroAddress = "0x0000000000000000000000000000000000000000";
   
   const checkMetaMaskInstalled = async() => {
@@ -24,9 +24,24 @@ export default function Home() {
       alert('MetaMaskをインストールしてください。')
     }
   }
+  const checkChainId = async () => {
+    const { ethereum } = window
+    if (ethereum) {
+      const chain = await ethereum.request({ method: 'eth_chainId' })
+      console.log(`chain: ${chain}`)
 
+      if (chain !== sepoliaId) {
+        alert('Sepoliaに接続してください')
+        setChainId(false)
+        return
+      } else {
+        setChainId(true)
+      }
+    }
+  }
   useEffect(() => {
     checkMetaMaskInstalled()
+    checkChainId()
   }, [])
   return (
     <div className={'flex flex-col items-center bg-slate-100 text-blue-900 min-h-screen'}>
