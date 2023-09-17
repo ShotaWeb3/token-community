@@ -98,6 +98,25 @@ export default function Home() {
 
     if (balance.toNumber() > 0) {
       setNftOwner(true)
+      for (let i = 0; i < balance.toNumber(); i++) {
+        const tokenId = await nftContract.tokenOfOwnerByIndex(addr, i)
+        let tokenURI = await nftContract.tokenURI(tokenId)
+        tokenURI = tokenURI.replace('ipfs://', 'https://ipfs.io/ipfs/')
+        const meta = await axios.get(tokenURI)
+
+        const name = meta.data.name
+        const description = meta.data.description
+        const imageURI = meta.data.image.replace('ipfs://', 'https://ipfs.io/ipfs/')
+
+        const item = {
+          tokenId,
+          name,
+          description,
+          tokenURI,
+          imageURI
+        }
+        setItems(items => [...items, item])
+      }
     } else { '' }
   }
 
@@ -290,6 +309,22 @@ export default function Home() {
                     onClick={ tokenWithdraw }
                   >引出</button>
                 </form>
+                {
+                  items.map((item, i) => (
+                    <div key={i} className="flex justify-center pl-1 py-2 mb-1">
+                      <div className="flex flex-col md:flex-row md:max-w-xl rounded-lg bg-white shadow-lg">
+                        <img className=" w-full h-96 md:h-auto object-cover md:w-48 rounded-t-lg md:rounded-none md:rounded-l-lg" src={ item.imageURI } alt="" />
+                        <div className="p-6 flex flex-col justify-start">
+                          <h5 className="text-gray-900 text-xl font-medium mb-2">{ item.name }</h5>
+                          <p className="text-gray-700 text-base mb-4">
+                            { item.description }
+                          </p>
+                          <p className="text-gray-600 text-xs">所有NFT# { item.tokenId.toNumber() }</p>
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                }
               </>) : (<></>)}
             </div>
           ) : (
